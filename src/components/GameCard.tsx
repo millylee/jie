@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Monitor } from "lucide-react";
 import type { Game } from "@/types";
 
@@ -16,11 +17,12 @@ export default function GameCard({
 }: GameCardProps) {
   const isBlocked = game.status === "blocked";
 
-  const blockedDays = (() => {
+  const blockedDays = useMemo(() => {
     if (!game.blocked_at) return 0;
+    // eslint-disable-next-line react-hooks/purity -- Date.now() is acceptable for display statistics
     const diff = Date.now() - new Date(game.blocked_at).getTime();
     return Math.floor(diff / (1000 * 60 * 60 * 24));
-  })();
+  }, [game.blocked_at]);
 
   const blockLabel = (() => {
     if (!isBlocked) return "";

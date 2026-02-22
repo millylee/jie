@@ -4,7 +4,10 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 export function useDragDrop(onFilesDropped: (paths: string[]) => void) {
   const [isDragging, setIsDragging] = useState(false);
   const callbackRef = useRef(onFilesDropped);
-  callbackRef.current = onFilesDropped;
+
+  useEffect(() => {
+    callbackRef.current = onFilesDropped;
+  }, [onFilesDropped]);
 
   useEffect(() => {
     let unlisten: (() => void) | null = null;

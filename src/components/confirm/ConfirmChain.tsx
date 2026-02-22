@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   AlertTriangle,
@@ -38,13 +38,21 @@ export default function ConfirmChain({
     "我承认我的自制力不足，我选择浪费时间玩游戏而不是做更有意义的事情。";
   const [typingInput, setTypingInput] = useState("");
 
-  const blockedDays = (() => {
+  const blockedDays = useMemo(() => {
     if (!game.blocked_at) return 0;
+    // eslint-disable-next-line react-hooks/purity -- Date.now() is acceptable for display statistics
     const diff = Date.now() - new Date(game.blocked_at).getTime();
     return Math.floor(diff / (1000 * 60 * 60 * 24));
-  })();
+  }, [game.blocked_at]);
 
   const typingMatch = typingInput === typingTarget;
+
+  const clearTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
     if (open) {
@@ -56,18 +64,11 @@ export default function ConfirmChain({
     } else {
       clearTimer();
     }
-  }, [open]);
+  }, [open, clearTimer]);
 
   useEffect(() => {
     return () => clearTimer();
-  }, []);
-
-  function clearTimer() {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  }
+  }, [clearTimer]);
 
   function close() {
     clearTimer();

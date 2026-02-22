@@ -50,7 +50,7 @@ pub fn check_expired_blocks(storage: &Arc<Storage>, vault_dir: &str) {
             if let Ok(last) = chrono::DateTime::parse_from_rfc3339(last_str) {
                 let delta = now.signed_duration_since(last).num_minutes();
                 // If clock went backwards or jumped too far forward, cap to 1 minute
-                if delta < 0 || delta > MAX_TICK_GAP_MINUTES {
+                if !(0..=MAX_TICK_GAP_MINUTES).contains(&delta) {
                     1
                 } else {
                     delta

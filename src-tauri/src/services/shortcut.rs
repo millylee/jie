@@ -42,9 +42,9 @@ fn extract_exe_path(raw: &str) -> String {
     let trimmed = raw.trim();
 
     // If quoted, extract content between quotes
-    if trimmed.starts_with('"') {
-        if let Some(end) = trimmed[1..].find('"') {
-            return trimmed[1..end + 1].to_string();
+    if let Some(stripped) = trimmed.strip_prefix('"') {
+        if let Some(end) = stripped.find('"') {
+            return stripped[..end].to_string();
         }
     }
 

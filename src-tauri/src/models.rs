@@ -75,17 +75,8 @@ pub struct MathChallenge {
     pub answer: i64,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AppData {
     pub games: Vec<Game>,
     pub settings: AppSettings,
-}
-
-impl Default for AppData {
-    fn default() -> Self {
-        Self {
-            games: Vec::new(),
-            settings: AppSettings::default(),
-        }
-    }
 }

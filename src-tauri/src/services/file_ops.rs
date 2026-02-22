@@ -52,7 +52,7 @@ pub fn block_shortcut(shortcut_path: &str, vault_dir: &str) -> Result<(), String
     let file_name = src.file_name().unwrap_or_default();
     let dest = vault.join(file_name);
 
-    if let Err(_) = fs::rename(src, &dest) {
+    if fs::rename(src, &dest).is_err() {
         fs::copy(src, &dest).map_err(|e| format!("移动快捷方式失败(复制阶段): {}", e))?;
         fs::remove_file(src).map_err(|e| format!("移动快捷方式失败(删除阶段): {}", e))?;
     }
@@ -80,7 +80,7 @@ pub fn restore_shortcut(shortcut_path: &str, vault_dir: &str) -> Result<(), Stri
         fs::create_dir_all(parent).map_err(|e| format!("创建目标目录失败: {}", e))?;
     }
 
-    if let Err(_) = fs::rename(&vault_file, original) {
+    if fs::rename(&vault_file, original).is_err() {
         fs::copy(&vault_file, original)
             .map_err(|e| format!("恢复快捷方式失败(复制阶段): {}", e))?;
         fs::remove_file(&vault_file).map_err(|e| format!("恢复快捷方式失败(删除阶段): {}", e))?;

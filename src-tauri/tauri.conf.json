@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/nicbarker/tauri/refs/heads/v2/crates/tauri-cli/schema.json",
-  "productName": "戒",
+  "productName": "Jie",
   "version": "0.1.0",
   "identifier": "com.jie.app",
   "build": {
@@ -18,7 +18,12 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "windows": {
+      "wix": {
+        "language": "zh-CN"
+      }
+    }
   },
   "app": {
     "withGlobalTauri": false,

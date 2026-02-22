@@ -57,7 +57,11 @@ pub fn block_shortcut(shortcut_path: &str, vault_dir: &str) -> Result<(), String
         fs::remove_file(src).map_err(|e| format!("移动快捷方式失败(删除阶段): {}", e))?;
     }
 
-    log::info!("已将快捷方式移入保险箱: {} -> {}", shortcut_path, dest.display());
+    log::info!(
+        "已将快捷方式移入保险箱: {} -> {}",
+        shortcut_path,
+        dest.display()
+    );
     Ok(())
 }
 
@@ -79,10 +83,13 @@ pub fn restore_shortcut(shortcut_path: &str, vault_dir: &str) -> Result<(), Stri
     if let Err(_) = fs::rename(&vault_file, original) {
         fs::copy(&vault_file, original)
             .map_err(|e| format!("恢复快捷方式失败(复制阶段): {}", e))?;
-        fs::remove_file(&vault_file)
-            .map_err(|e| format!("恢复快捷方式失败(删除阶段): {}", e))?;
+        fs::remove_file(&vault_file).map_err(|e| format!("恢复快捷方式失败(删除阶段): {}", e))?;
     }
 
-    log::info!("已恢复快捷方式: {} -> {}", vault_file.display(), shortcut_path);
+    log::info!(
+        "已恢复快捷方式: {} -> {}",
+        vault_file.display(),
+        shortcut_path
+    );
     Ok(())
 }

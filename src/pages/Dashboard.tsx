@@ -10,8 +10,7 @@ import ConfirmChain from "@/components/confirm/ConfirmChain";
 import type { Game } from "@/types";
 
 export default function Dashboard() {
-  const { games, addGame, removeGame, blockGame, restoreGame } =
-    useGameStore();
+  const { games, addGame, removeGame, blockGame, restoreGame } = useGameStore();
   const [loading, setLoading] = useState(false);
 
   // Block dialog

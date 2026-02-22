@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { AlertTriangle, Clock, PenLine, PenTool, CheckCircle } from "lucide-react";
+import {
+  AlertTriangle,
+  Clock,
+  PenLine,
+  PenTool,
+  CheckCircle,
+} from "lucide-react";
 import type { Game } from "@/types";
 import { useGameStore } from "@/stores/useGameStore";
 

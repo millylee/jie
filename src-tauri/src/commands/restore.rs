@@ -1,10 +1,10 @@
+use rand::Rng;
 use std::sync::Arc;
 use tauri::State;
-use rand::Rng;
 
 use crate::models::{Game, GameStatus, MathChallenge};
-use crate::services::storage::Storage;
 use crate::services::file_ops;
+use crate::services::storage::Storage;
 
 #[tauri::command]
 pub fn restore_game(

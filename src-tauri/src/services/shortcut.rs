@@ -24,7 +24,10 @@ const CLSID_SHELL_LINK: GUID = GUID {
 
 /// Convert a Rust &str to a null-terminated wide string (Vec<u16>).
 fn to_wide(s: &str) -> Vec<u16> {
-    OsStr::new(s).encode_wide().chain(std::iter::once(0)).collect()
+    OsStr::new(s)
+        .encode_wide()
+        .chain(std::iter::once(0))
+        .collect()
 }
 
 /// Convert a null-terminated wide string buffer to a Rust String.

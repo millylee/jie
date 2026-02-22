@@ -1,0 +1,10 @@
+[target.'cfg(all())']
+rustflags = [
+  "-D", "warnings",
+]
+
+[build]
+incremental = true
+
+[clippy]
+warn-on-all = true

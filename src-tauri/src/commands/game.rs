@@ -1,10 +1,10 @@
-use tauri::State;
 use std::sync::Arc;
+use tauri::State;
 
 use crate::models::{Game, GameStatus};
-use crate::services::storage::Storage;
-use crate::services::shortcut;
 use crate::services::icon;
+use crate::services::shortcut;
+use crate::services::storage::Storage;
 
 #[tauri::command]
 pub fn get_games(storage: State<'_, Arc<Storage>>) -> Result<Vec<Game>, String> {

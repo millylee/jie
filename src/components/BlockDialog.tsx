@@ -53,9 +53,7 @@ export default function BlockDialog({
             <label className="block text-sm font-medium mb-2">封锁类型</label>
             <RadioGroup.Root
               value={blockType}
-              onValueChange={(v) =>
-                setBlockType(v as "timed" | "permanent")
-              }
+              onValueChange={(v) => setBlockType(v as "timed" | "permanent")}
               className="flex flex-col gap-2"
             >
               <label className="flex items-center gap-2 cursor-pointer">
@@ -78,9 +76,7 @@ export default function BlockDialog({
           {/* Duration */}
           {blockType === "timed" && (
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">
-                封锁时长
-              </label>
+              <label className="block text-sm font-medium mb-2">封锁时长</label>
               <Select.Root
                 value={String(duration)}
                 onValueChange={(v) => setDuration(Number(v))}

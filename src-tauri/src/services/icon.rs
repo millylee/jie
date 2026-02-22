@@ -8,8 +8,8 @@ use winapi::shared::minwindef::FALSE;
 use winapi::shared::windef::HICON;
 use winapi::um::shellapi::ExtractIconExW;
 use winapi::um::wingdi::{
-    BITMAP, BITMAPINFO, BITMAPINFOHEADER, BI_RGB, CreateCompatibleDC, DeleteDC,
-    DeleteObject, GetDIBits, GetObjectW, DIB_RGB_COLORS,
+    CreateCompatibleDC, DeleteDC, DeleteObject, GetDIBits, GetObjectW, BITMAP, BITMAPINFO,
+    BITMAPINFOHEADER, BI_RGB, DIB_RGB_COLORS,
 };
 use winapi::um::winuser::{DestroyIcon, GetIconInfo, ICONINFO};
 

@@ -1,9 +1,9 @@
-use std::sync::Arc;
 use chrono::Utc;
+use std::sync::Arc;
 
 use crate::models::{BlockType, GameStatus};
-use crate::services::storage::Storage;
 use crate::services::file_ops;
+use crate::services::storage::Storage;
 
 /// Maximum allowed real-time gap (in minutes) between two ticks.
 /// If the gap exceeds this, we assume clock tampering and only count 1 minute.
@@ -86,11 +86,7 @@ pub fn check_expired_blocks(storage: &Arc<Storage>, vault_dir: &str) {
     }
 }
 
-fn try_restore(
-    game: &mut crate::models::Game,
-    vault_dir: &str,
-    changed: &mut bool,
-) {
+fn try_restore(game: &mut crate::models::Game, vault_dir: &str, changed: &mut bool) {
     let result = file_ops::restore_file(&game.exe_path);
     if result.is_ok() {
         // Restore shortcut if exists

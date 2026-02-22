@@ -33,8 +33,8 @@ fn save_settings(
 fn enable_autostart() -> Result<(), String> {
     use std::ffi::OsStr;
     use std::os::windows::ffi::OsStrExt;
-    use winapi::um::winreg::{RegOpenKeyExW, RegSetValueExW, HKEY_CURRENT_USER};
     use winapi::um::winnt::{KEY_SET_VALUE, REG_SZ};
+    use winapi::um::winreg::{RegOpenKeyExW, RegSetValueExW, HKEY_CURRENT_USER};
 
     let exe_path = std::env::current_exe().map_err(|e| e.to_string())?;
     let value_data = format!("\"{}\"", exe_path.display());
@@ -54,7 +54,13 @@ fn enable_autostart() -> Result<(), String> {
 
     unsafe {
         let mut hkey = std::ptr::null_mut();
-        let ret = RegOpenKeyExW(HKEY_CURRENT_USER, sub_key.as_ptr(), 0, KEY_SET_VALUE, &mut hkey);
+        let ret = RegOpenKeyExW(
+            HKEY_CURRENT_USER,
+            sub_key.as_ptr(),
+            0,
+            KEY_SET_VALUE,
+            &mut hkey,
+        );
         if ret != 0 {
             return Err(format!("打开注册表失败: error code {}", ret));
         }
@@ -78,8 +84,8 @@ fn enable_autostart() -> Result<(), String> {
 fn disable_autostart() -> Result<(), String> {
     use std::ffi::OsStr;
     use std::os::windows::ffi::OsStrExt;
-    use winapi::um::winreg::{RegOpenKeyExW, RegDeleteValueW, HKEY_CURRENT_USER};
     use winapi::um::winnt::KEY_SET_VALUE;
+    use winapi::um::winreg::{RegDeleteValueW, RegOpenKeyExW, HKEY_CURRENT_USER};
 
     let sub_key: Vec<u16> = OsStr::new("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run")
         .encode_wide()
@@ -92,7 +98,13 @@ fn disable_autostart() -> Result<(), String> {
 
     unsafe {
         let mut hkey = std::ptr::null_mut();
-        let ret = RegOpenKeyExW(HKEY_CURRENT_USER, sub_key.as_ptr(), 0, KEY_SET_VALUE, &mut hkey);
+        let ret = RegOpenKeyExW(
+            HKEY_CURRENT_USER,
+            sub_key.as_ptr(),
+            0,
+            KEY_SET_VALUE,
+            &mut hkey,
+        );
         if ret != 0 {
             return Err(format!("打开注册表失败: error code {}", ret));
         }
@@ -131,11 +143,9 @@ pub fn run() {
             // Start background timer for checking expired blocks
             let timer_storage = storage.clone();
             let timer_vault = vault_dir.clone();
-            std::thread::spawn(move || {
-                loop {
-                    std::thread::sleep(std::time::Duration::from_secs(60));
-                    services::timer::check_expired_blocks(&timer_storage, &timer_vault);
-                }
+            std::thread::spawn(move || loop {
+                std::thread::sleep(std::time::Duration::from_secs(60));
+                services::timer::check_expired_blocks(&timer_storage, &timer_vault);
             });
 
             // System tray

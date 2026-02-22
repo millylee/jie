@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--c-primary);
+  --color-danger: var(--c-danger);
+  --color-success: var(--c-success);
+  --color-warning: var(--c-warning);
+  --color-jie-bg: var(--c-bg);
+  --color-jie-card-bg: var(--c-card-bg);
+  --color-jie-text: var(--c-text);
+  --color-jie-text-secondary: var(--c-text-secondary);
+  --color-jie-border: var(--c-border);
+  --color-jie-hover: var(--c-hover);
+  --color-jie-switch: var(--c-switch);
+  --color-jie-overlay: var(--c-overlay);
+  --color-jie-hint: var(--c-hint);
+  --color-jie-scrollbar: var(--c-scrollbar);
+}
+
+/* ===== Light theme (default) ===== */
+:root {
+  --c-primary: #14b8a6;
+  --c-danger: #e54d4d;
+  --c-success: #22a55b;
+  --c-warning: #d9860b;
+  --c-bg: #f0f2f7;
+  --c-card-bg: #ffffff;
+  --c-text: #1e293b;
+  --c-text-secondary: #64748b;
+  --c-border: #cbd5e1;
+  --c-hover: #eef1f7;
+  --c-switch: #c5ccdb;
+  --c-overlay: rgba(15, 23, 42, 0.45);
+  --c-hint: #94a3b8;
+  --c-scrollbar: #b0b9c9;
+}
+
+/* ===== Dark theme ===== */
+.dark {
+  --c-primary: #2dd4bf;
+  --c-danger: #f87171;
+  --c-success: #4ade80;
+  --c-warning: #fbbf24;
+  --c-bg: #0b1120;
+  --c-card-bg: #111d35;
+  --c-text: #e2e8f0;
+  --c-text-secondary: #7089ab;
+  --c-border: #1e3050;
+  --c-hover: #152240;
+  --c-switch: #243752;
+  --c-overlay: rgba(5, 10, 25, 0.65);
+  --c-hint: #3e5575;
+  --c-scrollbar: #243752;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body,
+  #app {
+    height: 100%;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    user-select: none;
+    overflow: hidden;
+  }
+
+  button,
+  [role="button"],
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  select,
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"]:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* Scrollbar */
+.app-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.app-main::-webkit-scrollbar-thumb {
+  background: var(--c-scrollbar);
+  border-radius: 3px;
+}
+
+.app-main::-webkit-scrollbar-track {
+  background: transparent;
+}
